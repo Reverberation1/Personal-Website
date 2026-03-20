@@ -1,0 +1,22 @@
+<nav class="nav">
+    {% if page.url == '/' or page.url == '' %}
+    <span class="nav-link nav-link-current" data-text="Home" aria-current="page"><span class="nav-link-bracket">[</span><span class="nav-link-word">Home</span><span class="nav-link-bracket">]</span></span>
+    {% else %}
+    <a href="{{ '/' | relative_url }}" class="nav-link" data-text="Home"><span class="nav-link-bracket">[</span><span class="nav-link-word">Home</span><span class="nav-link-bracket">]</span></a>
+    {% endif %}
+    {% if page.url == '/cv/' %}
+    <span class="nav-link nav-link-current" data-text="CV" aria-current="page"><span class="nav-link-bracket">[</span><span class="nav-link-word">CV</span><span class="nav-link-bracket">]</span></span>
+    {% else %}
+    <a href="{{ '/cv/' | relative_url }}" class="nav-link" data-text="CV"><span class="nav-link-bracket">[</span><span class="nav-link-word">CV</span><span class="nav-link-bracket">]</span></a>
+    {% endif %}
+    {% if page.url == '/projects/' %}
+    <span class="nav-link nav-link-current" data-text="Projects" aria-current="page"><span class="nav-link-bracket">[</span><span class="nav-link-word">Projects</span><span class="nav-link-bracket">]</span></span>
+    {% else %}
+    <a href="{{ '/projects/' | relative_url }}" class="nav-link" data-text="Projects"><span class="nav-link-bracket">[</span><span class="nav-link-word">Projects</span><span class="nav-link-bracket">]</span></a>
+    {% endif %}
+    {% if page.url == '/contact/' %}
+    <span class="nav-link nav-link-current" data-text="Contact" aria-current="page"><span class="nav-link-bracket">[</span><span class="nav-link-word">Contact</span><span class="nav-link-bracket">]</span></span>
+    {% else %}
+    <a href="{{ '/contact/' | relative_url }}" class="nav-link" data-text="Contact"><span class="nav-link-bracket">[</span><span class="nav-link-word">Contact</span><span class="nav-link-bracket">]</span></a>
+    {% endif %}
+</nav>
