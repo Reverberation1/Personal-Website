@@ -10,7 +10,7 @@ Feel free to reach out! I'm always interested in connecting with fellow problem 
 
 ## Get in Touch
 
-- **Email:** [hello@kester.email](contact@kester.email)
+- **Email:** [contact@kester.email](contact@kester.email)
 - **GitHub:** [@Reverberation1](https://github.com/Reverberation1)
 - **LinkedIn:** [Kester Stefan](https://www.linkedin.com/in/kester-stefan/)
 
