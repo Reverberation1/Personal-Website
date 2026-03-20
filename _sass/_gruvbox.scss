@@ -1,0 +1,86 @@
+/* Gruvbox Color Scheme - SCSS Variables */
+/* Based on the Gruvbox color palette by morhetz */
+
+:root {
+    /* Dark mode colors */
+    --bg-dark0-hard: #1d2021;
+    --bg-dark0: #282828;
+    --bg-dark0-soft: #32302f;
+    --bg-dark1: #3c3836;
+    --bg-dark2: #504945;
+    --bg-dark3: #665c54;
+    --bg-dark4: #7c6f64;
+    
+    --fg-dark0: #fbf1c7;
+    --fg-dark1: #ebdbb2;
+    --fg-dark2: #d5c4a1;
+    --fg-dark3: #bdae93;
+    --fg-dark4: #a89984;
+    
+    /* Light mode colors */
+    --bg-light0-hard: #f9f5d7;
+    --bg-light0: #fbf1c7;
+    --bg-light0-soft: #f2e5bc;
+    --bg-light1: #ebdbb2;
+    --bg-light2: #d5c4a1;
+    --bg-light3: #bdae93;
+    --bg-light4: #a89984;
+    
+    --fg-light0: #282828;
+    --fg-light1: #3c3836;
+    --fg-light2: #504945;
+    --fg-light3: #665c54;
+    --fg-light4: #7c6f64;
+    
+    /* Accent colors - bright variants */
+    --red-bright: #fb4934;
+    --green-bright: #b8bb26;
+    --yellow-bright: #fabd2f;
+    --blue-bright: #83a598;
+    --purple-bright: #d3869b;
+    --aqua-bright: #8ec07c;
+    --orange-bright: #fe8019;
+    
+    /* Accent colors - neutral variants */
+    --red-neutral: #cc241d;
+    --green-neutral: #98971a;
+    --yellow-neutral: #d79921;
+    --blue-neutral: #458588;
+    --purple-neutral: #b16286;
+    --aqua-neutral: #689d6a;
+    --orange-neutral: #d65d0e;
+    
+    /* Accent colors - faded variants */
+    --red-faded: #9d0006;
+    --green-faded: #79740e;
+    --yellow-faded: #b57614;
+    --blue-faded: #076678;
+    --purple-faded: #8f3f71;
+    --aqua-faded: #427b58;
+    --orange-faded: #af3a03;
+    
+    /* Default to dark mode */
+    --bg-primary: var(--bg-dark0);
+    --bg-secondary: var(--bg-dark1);
+    --bg-tertiary: var(--bg-dark2);
+    --fg-primary: var(--fg-dark0);
+    --fg-secondary: var(--fg-dark1);
+    --fg-tertiary: var(--fg-dark2);
+    --accent: var(--blue-bright);
+    --accent-hover: var(--blue-neutral);
+    --border-color: var(--bg-dark2);
+}
+
+/* Light mode override */
+html[data-theme='light'],
+html.light-mode {
+    --bg-primary: var(--bg-light0);
+    --bg-secondary: var(--bg-light1);
+    --bg-tertiary: var(--bg-light2);
+    --fg-primary: var(--fg-light0);
+    --fg-secondary: var(--fg-light1);
+    --fg-tertiary: var(--fg-light2);
+    --accent: var(--blue-neutral);
+    --accent-hover: var(--blue-faded);
+    --border-color: var(--bg-light2);
+}

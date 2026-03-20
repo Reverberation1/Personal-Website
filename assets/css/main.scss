@@ -1,0 +1,552 @@
+---
+# Jekyll requires front matter for SCSS files
+---
+
+/* Gruvbox Color Scheme - CSS Variables */
+/* Based on the Gruvbox color palette by morhetz */
+
+:root {
+    /* Dark mode colors */
+    --bg-dark0-hard: #1d2021;
+    --bg-dark0: #282828;
+    --bg-dark0-soft: #32302f;
+    --bg-dark1: #3c3836;
+    --bg-dark2: #504945;
+    --bg-dark3: #665c54;
+    --bg-dark4: #7c6f64;
+    
+    --fg-dark0: #fbf1c7;
+    --fg-dark1: #ebdbb2;
+    --fg-dark2: #d5c4a1;
+    --fg-dark3: #bdae93;
+    --fg-dark4: #a89984;
+    
+    /* Light mode colors */
+    --bg-light0-hard: #f9f5d7;
+    --bg-light0: #fbf1c7;
+    --bg-light0-soft: #f2e5bc;
+    --bg-light1: #ebdbb2;
+    --bg-light2: #d5c4a1;
+    --bg-light3: #bdae93;
+    --bg-light4: #a89984;
+    
+    --fg-light0: #282828;
+    --fg-light1: #3c3836;
+    --fg-light2: #504945;
+    --fg-light3: #665c54;
+    --fg-light4: #7c6f64;
+    
+    /* Accent colors */
+    --blue-bright: #83a598;
+    --blue-neutral: #458588;
+    --blue-faded: #076678;
+    --orange-bright: #fe8019;
+    --orange-neutral: #d65d0e;
+    
+    /* Default to dark mode */
+    --bg-primary: var(--bg-dark0);
+    --fg-primary: var(--fg-dark0);
+    --fg-secondary: var(--fg-dark2);
+    --fg-tertiary: var(--fg-dark3);
+    --accent: var(--blue-bright);
+    --quote-highlight: var(--orange-bright);
+    --border-color: var(--bg-dark2);
+}
+
+/* Light mode override */
+html[data-theme='light'],
+html.light-mode {
+    --bg-primary: var(--bg-light0);
+    --fg-primary: var(--fg-light0);
+    --fg-secondary: var(--fg-light2);
+    --fg-tertiary: var(--fg-light3);
+    --accent: var(--blue-neutral);
+    --quote-highlight: var(--orange-neutral);
+    --border-color: var(--bg-light2);
+}
+
+/* Theme change animation - only when toggling (class added by JS) */
+html.theme-transitioning * {
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out !important;
+}
+
+
+/* Ultra-minimal Design */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Suranna', serif;
+    line-height: 1.6;
+    color: var(--fg-primary);
+    background-color: var(--bg-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* Layout: content column between clear left/right boundaries; centered, narrow enough that text wraps inside the right edge */
+.container {
+    width: 100%;
+    max-width: min(720px, 90vw);
+    min-width: 0;
+    margin: 0 auto;
+    padding: 3rem min(1.25rem, 4vw);
+    flex: 1;
+    transition: padding 0.4s ease 0.12s, max-width 0.4s ease 0.12s;
+}
+
+/* Main content: fills column between the two boundaries, left-aligned, wraps at right edge */
+.main {
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+    transition: padding 0.4s ease 0.12s;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* Header: nav left-aligned within the column (same left edge as content) */
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    position: relative;
+    transition: margin-bottom 0.4s ease 0.12s, padding-bottom 0.4s ease 0.12s;
+}
+
+/* Nav: left-aligned in column; content below shares same left edge and fills column width */
+.nav {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    transition: gap 0.4s ease 0.12s;
+}
+
+.nav-link {
+    color: var(--fg-secondary);
+    text-decoration: none;
+    font-size: 1rem;
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    line-height: 1;
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 0.2em 0.35em;
+    border-radius: 2px;
+}
+
+/* Hover: opposite colour scheme so selection is clear */
+html[data-theme='dark'] .nav-link:hover,
+html:not([data-theme='light']) .nav-link:hover {
+    background-color: var(--bg-light0);
+    color: var(--fg-light0);
+}
+
+html[data-theme='light'] .nav-link:hover {
+    background-color: var(--bg-dark0);
+    color: var(--fg-dark0);
+}
+
+.nav-link:hover {
+    text-decoration: none;
+}
+
+/* Current page: same look, not a link; hover works for scramble */
+.nav-link-current {
+    cursor: default;
+}
+
+.nav-link-bracket {
+    pointer-events: none;
+}
+
+/* Reserve space during scramble so nav titles don't shift */
+.nav-link-reserve {
+    color: transparent;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Theme Toggle - minimal, top right */
+.theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    background: transparent;
+    border: none;
+    color: var(--fg-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.theme-toggle:hover {
+    color: var(--fg-primary);
+}
+
+/* Main Content - body loads in from top; name is separate and unscrambles with titles */
+/* Only the body content (not the name or other h1s) gets the slide-in */
+.main > *:not(.name):not(h1):not(.scramble-text) {
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: loadInFromTop 0.65s ease-out forwards;
+    animation-delay: 0.45s;
+}
+
+.main > .name,
+.main > h1 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+}
+
+@keyframes loadInFromTop {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Typography - minimal, clean, Suranna */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--fg-primary);
+    font-weight: 400;
+    font-family: 'Suranna', serif;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+/* Pixel font for name/headings - retro style, thinner */
+h1.name,
+.name,
+.main > h1 {
+    display: inline-block;
+    cursor: pointer;
+}
+
+h1.name,
+.name {
+    font-family: 'VT323', monospace;
+    font-size: 2.5rem;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    transition: font-size 0.4s ease 0.12s, margin 0.4s ease 0.12s;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin-top: 2.5rem;
+    transition: font-size 0.4s ease 0.12s, margin 0.4s ease 0.12s;
+}
+
+h3 {
+    font-size: 1.2rem;
+    transition: font-size 0.4s ease 0.12s;
+}
+
+p {
+    margin-bottom: 1.5rem;
+    color: var(--fg-primary);
+    line-height: 1.7;
+    font-family: 'Suranna', serif;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+a:hover {
+    color: var(--fg-primary);
+    text-decoration: underline;
+}
+
+ul, ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    color: var(--fg-primary);
+    font-family: 'Suranna', serif;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+li {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+    font-family: 'Suranna', serif;
+}
+
+/* Skills/Tags - pixel font style, thinner */
+.skills,
+.skill-tag,
+.tag {
+    font-family: 'VT323', monospace;
+    font-size: 0.9rem;
+    display: inline-block;
+    background-color: var(--bg-secondary);
+    color: var(--fg-primary);
+    padding: 0.3rem 0.5rem;
+    margin: 0.3rem 0.3rem 0.3rem 0;
+    border-radius: 4px;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+}
+
+/* Code blocks - minimal */
+code {
+    background-color: transparent;
+    padding: 0;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+    color: var(--fg-secondary);
+}
+
+pre {
+    background-color: transparent;
+    padding: 0;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+pre code {
+    color: var(--fg-secondary);
+}
+
+/* Location directly under name - grey, minimal gap */
+.main .name + .location {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.main p.location {
+    color: var(--fg-tertiary) !important;
+}
+
+.main > .name {
+    margin-bottom: 0.35rem;
+}
+
+/* Orange highlight (Hacker on home, project titles on projects, etc.) */
+.quote-highlight {
+    color: var(--quote-highlight);
+}
+
+/* Blockquotes - muted grey; standout word via .quote-highlight */
+.main blockquote {
+    border-left: 1px solid var(--border-color);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: var(--fg-tertiary) !important;
+    font-style: italic;
+}
+
+blockquote .quote-highlight {
+    color: var(--quote-highlight);
+    font-style: normal;
+}
+
+.hacker-definition .quote-body {
+    color: var(--fg-tertiary) !important;
+}
+
+.hacker-definition p {
+    margin-top: 0;
+    margin-bottom: 0.35rem;
+}
+
+.hacker-definition p:last-child {
+    margin-bottom: 0;
+}
+
+/* Section heading with line close underneath (CV Experience, Skills, Projects Featured Projects) */
+.main h2:has(+ .cv-entry),
+.main h2:has(+ .cv-skills),
+.main h2:has(+ hr) {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.35rem;
+}
+
+/* Projects page: hide the hr so the h2’s border is the only line */
+.main h2 + hr {
+    display: none;
+}
+
+.cv-entry {
+    margin-bottom: 2.5rem;
+}
+
+.cv-entry:last-child {
+    margin-bottom: 0;
+}
+
+/* Company line: flex so date can sit on far right */
+.cv-company-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.5rem;
+    margin-bottom: 0.35rem;
+}
+
+.cv-company-line .cv-date {
+    margin-left: auto;
+}
+
+.cv-role {
+    margin-bottom: 0.5rem;
+}
+
+.cv-description {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Company: orange (same as "Hacker" on home); rest of line (location tag) stays grey */
+.cv-company {
+    color: var(--quote-highlight);
+}
+
+.cv-company-line,
+.cv-description {
+    color: var(--fg-tertiary);
+}
+
+/* Role: primary (black) text */
+.cv-role {
+    color: var(--fg-primary);
+}
+
+/* Location and date tags: subtle pill style */
+.cv-tag,
+.cv-date {
+    display: inline-block;
+    font-size: 0.8rem;
+    padding: 0.15rem 0.35rem;
+    border-radius: 2px;
+    background-color: var(--bg-secondary);
+    color: var(--fg-tertiary);
+    border: 1px solid var(--border-color);
+    font-family: 'Suranna', serif;
+    font-weight: 400;
+}
+
+/* Skills: wrap of pills (Carmen-style) */
+.cv-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.cv-skill {
+    display: inline-block;
+    font-size: 0.8rem;
+    padding: 0.15rem 0.35rem;
+    border-radius: 2px;
+    background-color: var(--bg-secondary);
+    color: var(--fg-tertiary);
+    border: 1px solid var(--border-color);
+    font-family: 'Suranna', serif;
+    font-weight: 400;
+}
+
+/* Project title line: date on the right (same as CV company line) */
+.main h3:has(.cv-date) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.5rem;
+}
+.main h3:has(.cv-date) .cv-date {
+    margin-left: auto;
+}
+
+/* Footer - minimal */
+.footer {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    text-align: left;
+    color: var(--fg-secondary);
+    font-size: 0.85rem;
+    font-family: 'Suranna', serif;
+}
+
+/* Responsive Design - content flows to next line when space is limited */
+@media (max-width: 768px) {
+    .container {
+        padding: 2rem 1.5rem;
+    }
+    
+    .header {
+        margin-bottom: 3rem;
+    }
+    
+    .nav {
+        gap: 0.5rem;
+    }
+    
+    h1 {
+        font-size: 1.6rem;
+    }
+    
+    h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    .header,
+    .footer,
+    .theme-toggle {
+        display: none;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+}
