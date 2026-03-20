@@ -26,6 +26,8 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
+          # Lockfile is Bundler 4 (see Gemfile.lock BUNDLED WITH); default Bundler 2 breaks bundle install on CI
+          bundler: "Gemfile.lock"
           bundler-cache: true
       - name: Setup Pages
         id: pages
