@@ -1,12 +1,11 @@
 # Site Configuration
 title: Personal Website
 description: A minimal personal website
-author: Your Name
-email: your.email@example.com
+author: Kester Stefan
+email: contact@kester.email
 
-# GitHub Pages — project site: https://Reverberation1.github.io/Personal-Website/
-url: "https://Reverberation1.github.io"
-baseurl: "/Personal-Website"
+url: "kester.world"
+baseurl: ""
 
 # Build Settings
 markdown: kramdown
