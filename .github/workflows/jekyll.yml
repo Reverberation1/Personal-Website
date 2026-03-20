@@ -29,11 +29,10 @@ jobs:
           # Lockfile is Bundler 4 (see Gemfile.lock BUNDLED WITH); default Bundler 2 breaks bundle install on CI
           bundler: "Gemfile.lock"
           bundler-cache: true
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v5
+      # Custom domain serves the site at the domain root. configure-pages' base_path
+      # stays /repo-name for project repos, which breaks CSS/JS on kester.world.
       - name: Build with Jekyll
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: bundle exec jekyll build --baseurl ""
         env:
           JEKYLL_ENV: production
       - name: Upload artifact

@@ -4,7 +4,7 @@ description: A minimal personal website
 author: Kester Stefan
 email: contact@kester.email
 
-url: "kester.world"
+url: "https://kester.world"
 baseurl: ""
 
 # Build Settings
