@@ -23,4 +23,4 @@ Currently, I am hacking away at **Tesco Mobile**.
 
 ---
 
-Feel free to reach me at [my email](contact@kester.email) if you would like to chat.
+Feel free to reach me at [my email](mailto:{{ site.email }}) if you would like to chat.
