@@ -16,7 +16,7 @@ Feel free to reach out! I'm always interested in connecting with fellow problem 
 
 ## Availability
 
-I'm currently [available/not available] for:
+I'm currently <del>not available</del> **available** for:
 - Contract work
 - Freelance projects
 - Technical discussions
