@@ -20,5 +20,6 @@ vendor/
 .DS_Store
 Thumbs.db
 
+
 # Optional: Lock file (uncomment if not committing)
 # Gemfile.lock
