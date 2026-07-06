@@ -20,5 +20,9 @@ vendor/
 .DS_Store
 Thumbs.db
 
+# Local Claude Code tooling (kept on-disk, never published)
+CLAUDE.md
+.claude/
+
 # Optional: Lock file (uncomment if not committing)
 # Gemfile.lock
