@@ -18,7 +18,7 @@ I'm a _hacker_ who enjoys solving problems through creative means.
 My background is technical architecture and solutions but I enjoy all types and shapes of problems. I focus on elegant technology, sustainability and simplicity. 
 In my downtime, I think about minimalism, externalising thought and the balance of creation and consumption with intent. 
 
-Currently, I am hacking away at **Tesco Mobile**.
+Currently, I am hacking away at **Bit Pond**.
 
 
 ---
