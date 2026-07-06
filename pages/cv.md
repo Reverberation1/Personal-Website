@@ -9,7 +9,13 @@ permalink: /cv/
 ## Experience
 
 <div class="cv-entry">
-<p class="cv-company-line"><span class="cv-company">Tesco Mobile</span> <span class="cv-tag">Slough, UK</span> <span class="cv-date">May 2024 – Present</span></p>
+<p class="cv-company-line"><span class="cv-company">Bit Pond</span> <span class="cv-tag">London, UK</span> <span class="cv-date">2026 – Present</span></p>
+<p class="cv-role"><strong>Founder</strong></p>
+<p class="cv-description">Building Paperless, my own startup and consulting in the AI and solutions architecture space.</p>
+</div>
+
+<div class="cv-entry">
+<p class="cv-company-line"><span class="cv-company">Tesco Mobile</span> <span class="cv-tag">Slough, UK</span> <span class="cv-date">May 2024 – May 2026</span></p>
 <p class="cv-role"><strong>Solution Architect</strong></p>
 <p class="cv-description">Designing platforms that tie Tesco Stores and Tesco Mobile together. Think data sharing, rewards and unique propositions that work for both.</p>
 </div>
