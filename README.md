@@ -1,242 +1,81 @@
-# Personal Website
+# kester.world
 
-A minimal personal website built with [Jekyll](https://jekyllrb.com/), a static site generator written in Ruby. Features a Gruvbox color scheme with dark/light mode toggle and a clean, content-focused design.
+The source for my personal site — a small, text-first Jekyll site with a Gruvbox
+palette, a dark/light toggle, and a letter-scramble animation on headings and
+navigation.
 
-## Features
+Live at **<https://kester.world>**.
 
-- **Static Site Generation** with Jekyll
-- **Gruvbox Theme** with dark and light mode support
-- **Minimal Design** focused on content and readability
-- **Responsive Layout** that works on all devices
-- **GitHub Pages Ready** with automatic deployment
+## Run it locally
 
-## Project Structure
+Requires Ruby 3.x and Bundler.
 
-```
-Personal_Website/
-├── _config.yml          # Jekyll configuration
-├── _layouts/           # HTML templates
-│   └── default.html    # Base layout
-├── _includes/          # Reusable partials
-│   └── navigation.html # Navigation menu
-├── _sass/              # SCSS stylesheets
-│   ├── _gruvbox.scss   # Gruvbox color variables
-│   └── _main.scss      # Main stylesheet
-├── assets/             # Static assets
-│   ├── css/
-│   │   └── main.scss   # Main stylesheet entry
-│   └── js/
-│       ├── theme-toggle.js # Dark mode toggle
-│       └── load.js         # Content loading animation
-├── pages/              # Content pages
-│   ├── index.md        # Homepage
-│   ├── cv.md           # CV page
-│   ├── projects.md      # Projects page
-│   └── contact.md      # Contact page
-├── Gemfile             # Ruby dependencies
-└── README.md           # This file
-```
-
-## Prerequisites
-
-- [Ruby](https://www.ruby-lang.org/) 2.5.0 or higher
-- [Bundler](https://bundler.io/) gem
-
-Check if you have them installed:
 ```bash
-ruby --version
-bundle --version
+bundle install             # once
+bundle exec jekyll serve   # dev server with auto-reload at http://localhost:4000
+bundle exec jekyll build   # production build into _site/
 ```
 
-If you don't have Bundler:
-```bash
-gem install bundler
+There is no test suite, linter, or JavaScript build step. The scripts in
+`assets/js/` are plain files served as they are.
+
+## Layout
+
+```
+_config.yml               Jekyll config: site metadata, the `pages` collection
+_layouts/default.html     the only layout: <head>, header, nav, main, scripts
+_includes/navigation.html hand-written nav, one block per page
+pages/                    the content: home.md, cv.md, projects.md, contact.md
+assets/css/main.scss      the live stylesheet (self-contained)
+assets/js/scramble.js     the letter-scramble effect
+assets/js/theme-toggle.js dark/light toggle, persisted to localStorage
+assets/js/load.js         fade-in stub; the fade itself is CSS
+.github/workflows/        build and deploy to GitHub Pages
+_sass/                    legacy, unused — see Styling below
 ```
 
-## Installation
+Content lives in a `pages` collection rather than in root Markdown files.
+`_config.yml` outputs the collection at `/:name/`, and `pages/home.md` overrides
+its own permalink to `/`.
 
-1. **Clone or download this repository**
+## Add a page
 
-2. **Install dependencies:**
-   ```bash
-   bundle install
-   ```
+1. Create `pages/<name>.md` with front matter: `layout: default`, `title:`, and
+   a `permalink:` if you want something other than `/<name>/`.
+2. Add a matching block to `_includes/navigation.html`. The nav is written by
+   hand, not generated. Each entry has an `{% if page.url == '/<name>/' %}`
+   branch that renders the current page as a `<span>` instead of a link.
+3. Keep the `data-text` attribute and the inner `.nav-link-word` span. The
+   scramble animation selects on both.
 
-## Local Development
+To opt a heading or a line of text into the scramble effect, write raw HTML in
+the Markdown with the classes the script targets: `.name`, `.scramble-text`, or
+any `<h1>` directly under `.main`.
 
-### Serve Locally (with auto-reload)
+## Styling
 
-Start the Jekyll development server:
-```bash
-bundle exec jekyll serve
-```
+**Edit `assets/css/main.scss`.** It is the live stylesheet and it is fully
+self-contained: it inlines the Gruvbox variables and every rule, and it imports
+nothing. The partials in `_sass/` are dead code that nothing references.
 
-The site will be available at `http://localhost:4000`
+The file needs its leading empty `---` front matter, or Jekyll will not compile
+the SCSS.
 
-### Build for Production
+Colours are CSS custom properties on `:root`, re-declared under
+`html[data-theme='light']`. `theme-toggle.js` flips the `data-theme` attribute
+and writes the choice to `localStorage`. An inline script in the layout `<head>`
+applies the stored theme before first paint, so the page does not flash.
 
-Build the site:
-```bash
-bundle exec jekyll build
-```
+## Deployment
 
-The generated site will be in the `_site/` directory.
+`.github/workflows/jekyll.yml` builds the site and deploys it to GitHub Pages on
+every push to `main`. Two settings in that workflow are load-bearing:
 
-## How Jekyll Works
+- **`--baseurl ""`** — the site serves at the root of a custom domain, so the
+  build overrides the baseurl to empty. A non-empty baseurl breaks every CSS and
+  JS URL.
+- **`bundler: "Gemfile.lock"`** — `Gemfile.lock` was written by Bundler 4, and
+  the runner's default Bundler 2 fails `bundle install` without this.
 
-Jekyll uses several key concepts:
-
-### 1. Front Matter
-YAML metadata at the top of files (between `---`):
-```yaml
----
-layout: default
-title: My Page
-permalink: /my-page/
----
-```
-
-### 2. Layouts
-Templates in `_layouts/` that wrap content. The `default.html` layout includes navigation, theme toggle, and content area.
-
-### 3. Includes
-Reusable partials in `_includes/`. The `navigation.html` include creates the navigation menu.
-
-### 4. Liquid
-Template language used in Jekyll:
-- `{{ variable }}` - Output a variable
-- `{% tag %}` - Execute logic (loops, conditionals)
-
-### 5. Collections
-Custom content types. The `pages` collection in `_config.yml` defines our content pages.
-
-### 6. Sass/SCSS
-CSS preprocessing. Files in `_sass/` are imported and compiled to CSS.
-
-### The Build Process
-
-1. **Read Configuration** - Jekyll reads `_config.yml`
-2. **Process Files** - Converts Markdown to HTML, applies layouts
-3. **Process Assets** - Compiles SCSS to CSS, copies JS files
-4. **Generate Site** - Outputs final HTML files to `_site/`
-
-## Customization
-
-### Adding New Pages
-
-1. Create a new Markdown file in `pages/` directory:
-   ```markdown
-   ---
-   layout: default
-   title: My New Page
-   permalink: /my-new-page/
-   ---
-   
-   # My New Page
-   
-   Content goes here...
-   ```
-
-2. Add a link in `_includes/navigation.html` if desired.
-
-### Changing Colors
-
-Edit `_sass/_gruvbox.scss` to modify the Gruvbox color scheme. Colors are defined as CSS variables, making it easy to customize.
-
-### Modifying Layout
-
-- **Navigation**: Edit `_includes/navigation.html`
-- **Page Structure**: Edit `_layouts/default.html`
-- **Styling**: Edit `_sass/_main.scss`
-
-## Deployment to GitHub Pages
-
-### Automatic Deployment (Recommended)
-
-1. **Create a GitHub repository** for your website
-
-2. **Push your code:**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git remote add origin https://github.com/yourusername/your-repo.git
-   git push -u origin main
-   ```
-
-3. **Enable GitHub Pages:**
-   - Go to your repository Settings → Pages
-   - Under "Source", select "Deploy from a branch"
-   - Choose branch: `main` (or `master`)
-   - Choose folder: `/ (root)`
-   - Click Save
-
-4. **Your site will be live at:** `https://yourusername.github.io/your-repo/`
-
-GitHub Pages automatically builds and deploys your site when you push changes!
-
-### Manual Deployment (Alternative)
-
-If you want to build locally and deploy the `_site` folder:
-
-1. Build the site: `bundle exec jekyll build`
-2. Copy contents of `_site/` to `docs/` folder
-3. Update `_config.yml` to set `destination: docs`
-4. Commit and push
-
-## Custom Domain Setup
-
-1. **Create CNAME file:**
-   Create `CNAME` in the repository root with your domain name:
-   ```
-   yourdomain.com
-   ```
-
-2. **Configure DNS:**
-   Add DNS records with your DNS provider:
-   - **Type:** A or ALIAS
-   - **Name:** @ (or your subdomain)
-   - **Value:** GitHub Pages IP addresses:
-     - 185.199.108.153
-     - 185.199.109.153
-     - 185.199.110.153
-     - 185.199.111.153
-   - (Optional) Add AAAA records for IPv6
-
-3. **Enable in GitHub:**
-   - Go to repository Settings → Pages
-   - Enter your custom domain under "Custom domain"
-   - Check "Enforce HTTPS" (recommended)
-
-4. **Wait for DNS propagation** (can take up to 24 hours)
-
-## Troubleshooting
-
-### Build Errors
-
-- **Missing dependencies:** Run `bundle install`
-- **Ruby version:** Ensure you have Ruby 2.5.0+
-- **Bundler:** Install with `gem install bundler`
-
-### GitHub Pages Not Updating
-
-- Ensure `Gemfile` and `Gemfile.lock` are committed
-- Check GitHub Pages settings point to correct branch
-- Wait a few minutes for GitHub to rebuild
-
-### Theme Not Working
-
-- Ensure `_sass/` files are properly named (start with `_`)
-- Check that `assets/css/main.scss` has front matter (`---`)
-- Verify SCSS imports are correct
-
-## Resources
-
-- [Jekyll Documentation](https://jekyllrb.com/docs/)
-- [Jekyll on GitHub Pages](https://jekyllrb.com/docs/github-pages/)
-- [Liquid Template Language](https://shopify.github.io/liquid/)
-- [Gruvbox Color Scheme](https://github.com/morhetz/gruvbox)
-
-## License
-
-MIT License - feel free to use this as a starting point for your own website!
+`_site/` is local build output and is not committed. The workflow rebuilds from
+source.
