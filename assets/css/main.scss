@@ -498,6 +498,47 @@ blockquote .quote-highlight {
     margin-left: auto;
 }
 
+/* Writing surfaces - the /log/ and /essays/ indexes */
+.entry-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+}
+
+.entry-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0 1rem;
+    flex-wrap: wrap;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.entry-link {
+    font-size: 1.05rem;
+}
+
+.entry-row .entry-date {
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: var(--fg-tertiary);
+    font-family: 'VT323', monospace;
+}
+
+.empty-state,
+.entry-aside {
+    color: var(--fg-tertiary);
+    font-size: 0.9rem;
+}
+
+.empty-state {
+    margin: 2rem 0;
+}
+
+.entry-aside {
+    margin-top: 3rem;
+}
+
 /* Footer - minimal */
 .footer {
     margin-top: 5rem;
