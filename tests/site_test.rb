@@ -17,16 +17,40 @@ class SiteTest < Minitest::Test
   EXPECTED_PAGES = {
     "/" => "Home",
     "/cv/" => "CV",
-    "/projects/" => "Projects",
+    "/made/" => "Made",
     "/contact/" => "Contact"
   }.freeze
 
-  EXPECTED_NAV_WORDS = %w[Home CV Projects Contact].freeze
+  EXPECTED_NAV_WORDS = %w[Home CV Made Contact].freeze
+
+  # Pages the build emits that are NOT content pages: `jekyll-redirect-from`
+  # stubs, keyed by old URL with the path they point at.
+  #
+  # A stub is rendered from a template inside the gem, not from
+  # `_layouts/default.html`, so it has no nav at all. That is why the nav
+  # assertions below run over EXPECTED_PAGES and not over every built document
+  # — and why this constant has to exist rather than the nav test simply
+  # skipping pages that happen to lack a nav. A page must be *declared* a
+  # redirect to escape the nav check; it cannot escape by being broken.
+  #
+  REDIRECT_PAGES = { "/projects/" => "/made/" }.freeze
 
   AUTHOR = "Kester Stefan"
 
   def pages
     BuiltSite.pages
+  end
+
+  # Nothing is built that is not either a content page or a declared redirect.
+  #
+  # This is the guard that keeps the rescoped nav test honest: without it, a
+  # page could drop out of the nav assertions by losing its layout, and the
+  # suite would stay green while the site broke.
+  def test_built_site_contains_no_unexpected_pages
+    expected = (EXPECTED_PAGES.keys + REDIRECT_PAGES.keys).sort
+
+    assert_equal expected, pages.keys.sort,
+                 "the built site does not match the declared page inventory"
   end
 
   def test_all_four_pages_build
@@ -47,9 +71,10 @@ class SiteTest < Minitest::Test
     end
   end
 
+  # Every content page, not every built page — see REDIRECT_PAGES.
   def test_nav_words_on_every_page
-    pages.each do |url, document|
-      assert_equal EXPECTED_NAV_WORDS, nav_words(document), "nav differs on #{url}"
+    EXPECTED_PAGES.each_key do |url|
+      assert_equal EXPECTED_NAV_WORDS, nav_words(pages[url]), "nav differs on #{url}"
     end
   end
 
@@ -74,6 +99,61 @@ class SiteTest < Minitest::Test
       refute_nil item["data-text"], "nav item is missing data-text"
       refute_empty item.css("span.nav-link-word"),
                    "nav item is missing its .nav-link-word span"
+    end
+  end
+
+  # F02 AC-1: the page moved to /made/, and it took its content with it.
+  #
+  # The content assertions are the point. A rename that produced an empty
+  # /made/ would satisfy a URL check and lose the page.
+  def test_made_page_is_served_at_made
+    document = pages["/made/"]
+    refute_nil document, "/made/ was not built"
+
+    assert_equal "#{AUTHOR} — Made", document.title
+    assert_equal "Made", document.css("main.main > h1").first.text.strip
+
+    highlights = document.css(".quote-highlight").map { |node| node.text }
+    assert highlights.any? { |text| text.include?("Paperless") },
+           "the Paperless entry did not survive the move"
+    assert highlights.any? { |text| text.include?("Resonate") },
+           "the Resonate entry did not survive the move"
+    refute_empty document.css(".cv-date"), "the .cv-date markup was lost"
+  end
+
+  # F02 AC-2: the old URL still resolves, and resolves to the right place.
+  #
+  # Asserting only that /projects/ exists would pass on a stub pointing
+  # anywhere at all, so the target is what is asserted. "Ends with" rather than
+  # equality because jekyll-redirect-from composes an absolute URL from
+  # site.url — verified during the T-2a spike as
+  # `https://kester.world/made/`, not a root-relative path.
+  def test_projects_redirects_to_made
+    document = pages["/projects/"]
+    refute_nil document, "/projects/ was not built"
+
+    refresh = document.css('meta[http-equiv="refresh"]').first
+    refute_nil refresh, "the redirect stub has no meta refresh"
+    target = refresh["content"].to_s.split("url=", 2).last.to_s.strip
+    assert target.end_with?("/made/"),
+           "refresh target #{target.inspect} does not end in /made/"
+
+    canonical = document.css('link[rel="canonical"]').first
+    refute_nil canonical, "the redirect stub has no canonical link"
+    assert canonical["href"].to_s.end_with?("/made/"),
+           "canonical #{canonical['href'].inspect} does not end in /made/"
+  end
+
+  # F02 AC-3: no nav item points at the old URL.
+  #
+  # Scoped to the nav on purpose. The redirect stub names /projects/ in its own
+  # canonical href, legitimately, so a site-wide string check would fail on the
+  # feature working.
+  def test_no_content_page_links_to_projects
+    EXPECTED_PAGES.each_key do |url|
+      hrefs = pages[url].css("nav.nav a[href]").map { |node| node["href"] }
+      refute hrefs.any? { |href| href.end_with?("/projects/") },
+             "#{url} still has a nav link to /projects/"
     end
   end
 

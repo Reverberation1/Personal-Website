@@ -12,6 +12,7 @@ markdown: kramdown
 highlighter: rouge
 plugins:
   - jekyll-sass-converter
+  - jekyll-redirect-from
 
 # Sass Configuration
 sass:

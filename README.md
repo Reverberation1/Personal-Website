@@ -41,7 +41,7 @@ second.
 _config.yml               Jekyll config: site metadata, the `pages` collection
 _layouts/default.html     the only layout: <head>, header, nav, main, scripts
 _includes/navigation.html hand-written nav, one block per page
-pages/                    the content: home.md, cv.md, projects.md, contact.md
+pages/                    the content: home.md, cv.md, made.md, contact.md
 assets/css/main.scss      the live stylesheet (self-contained)
 assets/js/scramble.js     the letter-scramble effect
 assets/js/theme-toggle.js dark/light toggle, persisted to localStorage

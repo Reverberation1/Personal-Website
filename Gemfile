@@ -2,6 +2,11 @@ source "https://rubygems.org"
 
 gem "jekyll", "~> 4.2"
 
+# Generates the redirect stub for a page's old URL from `redirect_from` in its
+# front matter. Usable here because the deploy workflow runs our own Gemfile,
+# not the GitHub Pages whitelisted-plugin build.
+gem "jekyll-redirect-from", "~> 0.16"
+
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
 # and associated library.
 platforms :mingw, :x64_mingw, :mswin, :jruby do

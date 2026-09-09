@@ -1,10 +1,12 @@
 ---
 layout: default
-title: Projects
-permalink: /projects/
+title: Made
+permalink: /made/
+redirect_from:
+  - /projects/
 ---
 
-# Projects
+# Made
 
 A collection of projects I am working on. Each project represents a learning experience and a chance to build together something with customers. 
 
