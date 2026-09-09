@@ -34,3 +34,5 @@ exclude:
   - .gitignore
   - README.md
   - features
+  - tests
+  - Rakefile
