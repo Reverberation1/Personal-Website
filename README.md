@@ -16,8 +16,23 @@ bundle exec jekyll serve   # dev server with auto-reload at http://localhost:400
 bundle exec jekyll build   # production build into _site/
 ```
 
-There is no test suite, linter, or JavaScript build step. The scripts in
-`assets/js/` are plain files served as they are.
+There is no linter and no JavaScript build step. The scripts in `assets/js/`
+are plain files served as they are.
+
+## Tests
+
+```bash
+python3 -m pytest
+```
+
+Requires `pytest`. The tests use only the Python standard library otherwise —
+there is nothing to `pip install` beyond pytest itself.
+
+The suite builds the site into a temporary directory and asserts against the
+generated HTML. It never reads the committed `_site/`, because stale output
+would let the assertions pass while the real build was broken. So the tests
+need the Ruby toolchain too: if `bundle exec jekyll build` does not work, the
+suite fails with a message telling you so, rather than skipping.
 
 ## Layout
 

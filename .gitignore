@@ -26,3 +26,7 @@ Thumbs.db
 # Local working notes (not published)
 CHANGELOG.md
 features/
+
+# Python test harness
+.pytest_cache/
+__pycache__/

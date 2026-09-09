@@ -1,0 +1,6 @@
+# Deliberately malformed YAML: the flow sequence is never closed.
+# Verified against Jekyll 4.4.1 to exit non-zero with a Psych::SyntaxError
+# naming this file. A missing layout or bad page front matter will NOT do —
+# both of those exit 0.
+title: [unclosed
+  bad: : yaml

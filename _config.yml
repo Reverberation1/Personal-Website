@@ -34,3 +34,4 @@ exclude:
   - .gitignore
   - README.md
   - features
+  - tests
