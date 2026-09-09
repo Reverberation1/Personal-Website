@@ -22,3 +22,7 @@ Thumbs.db
 
 # Optional: Lock file (uncomment if not committing)
 # Gemfile.lock
+
+# Local working notes (not published)
+CHANGELOG.md
+features/
