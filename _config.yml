@@ -33,3 +33,4 @@ exclude:
   - .git
   - .gitignore
   - README.md
+  - features
