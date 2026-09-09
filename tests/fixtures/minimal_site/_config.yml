@@ -1,0 +1,2 @@
+# Valid minimal site. Proves SiteBuilder.build returns a populated directory.
+title: Minimal Fixture

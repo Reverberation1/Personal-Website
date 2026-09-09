@@ -16,8 +16,24 @@ bundle exec jekyll serve   # dev server with auto-reload at http://localhost:400
 bundle exec jekyll build   # production build into _site/
 ```
 
-There is no test suite, linter, or JavaScript build step. The scripts in
-`assets/js/` are plain files served as they are.
+There is no linter and no JavaScript build step. The scripts in `assets/js/`
+are plain files served as they are.
+
+## Tests
+
+```bash
+bundle exec rake test
+```
+
+Minitest and Nokogiri, installed by `bundle install` with everything else. One
+toolchain, the same one the site itself builds with.
+
+The suite builds the site into a temporary directory and asserts against the
+generated HTML. It never reads the committed `_site/`, because stale output
+would let the assertions pass while the real build was broken. Jekyll runs
+in-process through its own Ruby API rather than as a subprocess, so a bad
+config surfaces as a real exception and the whole run takes well under a
+second.
 
 ## Layout
 
