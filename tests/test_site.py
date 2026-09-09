@@ -15,7 +15,7 @@ EXPECTED_PAGES = {
     "/contact/": "Contact",
 }
 
-EXPECTED_NAV_WORDS = ["Home", "CV", "Projects", "Contact"]
+EXPECTED_NAV_WORDS = ["Home", "CV", "Projects", "DELIBERATELY-WRONG"]
 
 AUTHOR = "Kester Stefan"
 
