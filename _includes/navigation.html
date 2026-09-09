@@ -14,6 +14,11 @@
     {% else %}
     <a href="{{ '/made/' | relative_url }}" class="nav-link" data-text="Made"><span class="nav-link-bracket">[</span><span class="nav-link-word">Made</span><span class="nav-link-bracket">]</span></a>
     {% endif %}
+    {% if page.url == '/essays/' %}
+    <span class="nav-link nav-link-current" data-text="Essays" aria-current="page"><span class="nav-link-bracket">[</span><span class="nav-link-word">Essays</span><span class="nav-link-bracket">]</span></span>
+    {% else %}
+    <a href="{{ '/essays/' | relative_url }}" class="nav-link" data-text="Essays"><span class="nav-link-bracket">[</span><span class="nav-link-word">Essays</span><span class="nav-link-bracket">]</span></a>
+    {% endif %}
     {% if page.url == '/contact/' %}
     <span class="nav-link nav-link-current" data-text="Contact" aria-current="page"><span class="nav-link-bracket">[</span><span class="nav-link-word">Contact</span><span class="nav-link-bracket">]</span></span>
     {% else %}

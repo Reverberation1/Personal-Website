@@ -13,6 +13,9 @@ require "pathname"
 require "tmpdir"
 
 require_relative "site_builder"
+require_relative "entry_inventory"
+require_relative "site_inventory"
+require_relative "overlay_site"
 
 REPO_ROOT = Pathname.new(__dir__).parent
 FIXTURES = Pathname.new(__dir__).join("fixtures")
@@ -46,11 +49,16 @@ module PageAssertions
   # current page renders as a <span> and would be missing from a link list.
   # That span is also what scramble.js targets, so this doubles as a guard on
   # the animation's class contract.
+  #
+  # Scoped to `nav.nav`. It was document-wide until F01 added index pages whose
+  # bodies carry links of their own; an unscoped selector would have counted
+  # page content as navigation.
   def nav_words(document)
-    document.css("span.nav-link-word").map { |node| node.text.strip }
+    document.css("nav.nav span.nav-link-word").map { |node| node.text.strip }
   end
 
-  def links(document)
-    document.css("a[href]").map { |node| [node["href"], node.text.strip] }
+  # The navigation's links — not the page's. Scoped for the same reason.
+  def nav_links(document)
+    document.css("nav.nav a[href]").map { |node| [node["href"], node.text.strip] }
   end
 end

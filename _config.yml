@@ -24,6 +24,12 @@ collections:
   pages:
     output: true
     permalink: /:name/
+  log:
+    output: true
+    permalink: /log/:name/
+  essays:
+    output: true
+    permalink: /essays/:name/
 
 # Exclude from processing
 exclude:
