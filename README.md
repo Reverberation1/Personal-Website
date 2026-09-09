@@ -22,17 +22,18 @@ are plain files served as they are.
 ## Tests
 
 ```bash
-python3 -m pytest
+bundle exec rake test
 ```
 
-Requires `pytest`. The tests use only the Python standard library otherwise —
-there is nothing to `pip install` beyond pytest itself.
+Minitest and Nokogiri, installed by `bundle install` with everything else. One
+toolchain, the same one the site itself builds with.
 
 The suite builds the site into a temporary directory and asserts against the
 generated HTML. It never reads the committed `_site/`, because stale output
-would let the assertions pass while the real build was broken. So the tests
-need the Ruby toolchain too: if `bundle exec jekyll build` does not work, the
-suite fails with a message telling you so, rather than skipping.
+would let the assertions pass while the real build was broken. Jekyll runs
+in-process through its own Ruby API rather than as a subprocess, so a bad
+config surfaces as a real exception and the whole run takes well under a
+second.
 
 ## Layout
 

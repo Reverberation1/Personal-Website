@@ -1,2 +1,2 @@
-# Valid minimal site. Used to prove build_site returns a populated directory.
+# Valid minimal site. Proves SiteBuilder.build returns a populated directory.
 title: Minimal Fixture

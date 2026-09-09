@@ -27,6 +27,3 @@ Thumbs.db
 CHANGELOG.md
 features/
 
-# Python test harness
-.pytest_cache/
-__pycache__/
