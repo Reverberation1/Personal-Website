@@ -26,5 +26,5 @@ gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 group :test do
   gem "rake", "~> 13.0"
   gem "minitest", "~> 5.0"
-  gem "nokogiri", "~> 1.16"
+  gem "nokogiri", "~> 1.19"
 end
