@@ -9,9 +9,14 @@ permalink: /cv/
 ## Experience
 
 <div class="cv-entry">
+<p class="cv-company-line"><span class="cv-company">Glue Reply</span> <span class="cv-tag">London, UK</span> <span class="cv-date">Nov 2026 – Present</span></p>
+<p class="cv-role"><strong>Senior Consultant – Solution Architect</strong></p>
+</div>
+
+<div class="cv-entry">
 <p class="cv-company-line"><span class="cv-company">Bit Pond</span> <span class="cv-tag">London, UK</span> <span class="cv-date">2026 – Present</span></p>
-<p class="cv-role"><strong>Founder</strong></p>
-<p class="cv-description">Building Paperless, my own startup and consulting in the AI and solutions architecture space.</p>
+<p class="cv-role"><strong>Director</strong></p>
+<p class="cv-description">My own company, currently shelved. Home of Paperless.</p>
 </div>
 
 <div class="cv-entry">

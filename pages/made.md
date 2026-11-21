@@ -8,7 +8,7 @@ redirect_from:
 
 # Made
 
-A collection of projects I am working on. Each project represents a learning experience and a chance to build together something with customers. 
+A collection of projects I am working on. Each project represents a learning experience and a chance to build something useful. 
 
 ## Featured Projects
 ---

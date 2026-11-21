@@ -14,13 +14,10 @@ Feel free to reach out! I'm always interested in connecting with fellow problem 
 - **GitHub:** [@Reverberation1](https://github.com/Reverberation1)
 - **LinkedIn:** [Kester Stefan](https://www.linkedin.com/in/kester-stefan/)
 
-## Availability
+## Open to
 
-I'm currently <del>not available</del> **available** for:
-- Contract work
-- Freelance projects
 - Technical discussions
-- Collaboration opportunities
+- Collaboration on side projects
 
 ---
 
